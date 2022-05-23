@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func WriteData(id string, price float64, quantity int) error {
+func WriteData(id string, price string, quantity string) error {
 	var file *os.File
 	defer file.Close()
 
@@ -16,11 +16,11 @@ func WriteData(id string, price float64, quantity int) error {
 		return errors.New("empty ID")
 	}
 
-	if price <= 0 {
+	if price == "" {
 		return errors.New("invalid price")
 	}
 
-	if quantity <= 0 {
+	if quantity == "" {
 		return errors.New("invalid quantity")
 	}
 
@@ -43,7 +43,7 @@ func WriteData(id string, price float64, quantity int) error {
 	}
 
 	// format data to csv format
-	data := fmt.Sprintf("%s, %.2f, %d\n", id, price, quantity)
+	data := fmt.Sprintf("%s, %s, %s\n", id, price, quantity)
 
 	// save data
 	_, err = file.WriteString(data)
