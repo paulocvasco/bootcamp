@@ -35,7 +35,7 @@ func ReadFile() error {
 	}
 
 	for i, d := range data {
-		fmt.Printf("%d. ID: %s, Price: %s, Quantity: %s", i+1, d.ID, d.Price, d.Quantity)
+		fmt.Printf("%d. ID: %s, Price: %s, Quantity: %s\n", i+1, d.ID, d.Price, d.Quantity)
 	}
 
 	return nil
