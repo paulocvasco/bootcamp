@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bootcamp/food"
+	"bootcamp/aula_02_manha/food"
 	"fmt"
 )
 
