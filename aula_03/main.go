@@ -8,8 +8,13 @@ import (
 )
 
 func main() {
-	args := os.Args[1:]
-	option := args[0]
+	var option string
+	var args []string
+
+	if len(os.Args) > 1 {
+		args = os.Args[1:]
+		option = args[0]
+	}
 
 	switch option {
 	case "-w":
@@ -24,7 +29,7 @@ func main() {
 		}
 	default:
 		fmt.Println("Invalid option. Usage:")
-		fmt.Println("Save data: aula_3 -w id price quantity")
+		fmt.Println("Save data: aula_3 -w [id] [price] [quantity]")
 		fmt.Println("Read data: aula_3 -r")
 	}
 }
