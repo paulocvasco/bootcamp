@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 )
 
 func WriteData(id string, price string, quantity string) error {
@@ -17,15 +18,32 @@ func WriteData(id string, price string, quantity string) error {
 	}
 
 	if price == "" {
-		return errors.New("invalid price")
+		return errors.New("empty price")
 	}
 
 	if quantity == "" {
+		return errors.New("empty quantity")
+	}
+
+	// convert to validate
+	floatPrice, err := strconv.ParseFloat(price, 64)
+	if err != nil {
+		return err
+	}
+	if floatPrice <= 0 {
+		return errors.New("invalid price")
+	}
+
+	intQuant, err := strconv.Atoi(quantity)
+	if err != nil {
+		return err
+	}
+	if intQuant <= 0 {
 		return errors.New("invalid quantity")
 	}
 
 	// check if exists a file to save data
-	_, err := os.Stat("./saved_data.txt")
+	_, err = os.Stat("./saved_data.txt")
 	if err != nil {
 		log.Print("File doesn't exist. Creating...")
 
