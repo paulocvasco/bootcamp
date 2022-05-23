@@ -54,7 +54,7 @@ func WriteData(id string, price string, quantity string) error {
 
 		log.Print("File saved_data.txt created on currently folder.")
 	} else {
-		file, err = os.Open("./saved_data.txt")
+		file, err = os.OpenFile("./saved_data.txt", os.O_APPEND|os.O_WRONLY, os.ModeAppend)
 		if err != nil {
 			return err
 		}
