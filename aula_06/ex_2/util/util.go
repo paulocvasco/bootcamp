@@ -1,6 +1,9 @@
 package util
 
 import (
+	"bufio"
+	"errors"
+	"fmt"
 	"log"
 	"os"
 
@@ -34,11 +37,32 @@ func OpenFile() (*os.File, error) {
 
 		log.Print("File customers.txt created on ./customers folder.")
 	} else {
-		file, err = os.OpenFile("./customers/customers.txt", os.O_APPEND|os.O_WRONLY, os.ModeAppend)
+		file, err = os.OpenFile("./customers/customers.txt", os.O_APPEND|os.O_RDWR, os.ModeAppend)
 		if err != nil {
 			return nil, err
 		}
 	}
 
 	return file, nil
+}
+
+func SearchUser(file *os.File, id string) error {
+	scan := bufio.NewScanner(file)
+	for scan.Scan() {
+		if scan.Text() == id {
+			userFile := fmt.Sprintf("./customers/%s", id)
+			file, err := os.OpenFile(userFile, os.O_RDONLY, os.ModeAppend)
+			if err != nil {
+				return err
+			}
+			defer file.Close()
+
+			scanUser := bufio.NewScanner(file)
+			for scanUser.Scan() {
+				fmt.Println(scanUser.Text())
+			}
+			return nil
+		}
+	}
+	return errors.New("user not found")
 }
