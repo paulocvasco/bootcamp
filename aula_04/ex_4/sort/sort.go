@@ -28,7 +28,7 @@ func Selection(nums types.Values) {
 	}
 }
 
-func Count(nums types.Values) {
+func Bubble(nums types.Values) {
 	var isDone = false
 
 	for !isDone {
