@@ -9,6 +9,8 @@ import (
 func main() {
 	variavel := rand.Perm(100)
 	fmt.Println(variavel)
+	count(variavel)
+	fmt.Println(variavel)
 }
 
 func insertion(nums types.Values) {
@@ -38,40 +40,17 @@ func selection(nums types.Values) {
 }
 
 func count(nums types.Values) {
-	var max = nums[0]
+	var isDone = false
 
-	var i = 1
-	for i < nums.Len() {
-		if nums[i] > max {
-			max = nums[i]
+	for !isDone {
+		isDone = true
+		var i = 0
+		for i < nums.Len()-1 {
+			if !nums.Less(i, i+1) {
+				nums.Swap(i, i+1)
+				isDone = false
+			}
+			i++
 		}
-
-		i++
-	}
-
-	var indices = make([]int, max+1)
-
-	var j = 0
-	for j < nums.Len() {
-		indices[nums[j]]++
-
-		j++
-	}
-
-	var k = 1
-	for k < len(indices) {
-		indices[k] += indices[k-1]
-
-		k++
-	}
-
-	var result = make([]int, nums.Len())
-
-	var m = 0
-	for m < nums.Len() {
-		result[indices[nums[m]]-1] = nums[m]
-		indices[nums[m]]--
-
-		m++
 	}
 }
