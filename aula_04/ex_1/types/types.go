@@ -78,59 +78,68 @@ func (u *Users) AddUser(name, lastname, age, email, pass string) {
 	*u = append(*u, newUser)
 }
 
-func (u Users) ShowUsers() {
-	for _, user := range u {
+func (u *Users) ShowUsers() {
+	for _, user := range *u {
 		user.printContent()
 	}
 }
 
 func (u *Users) ChangeName(username string, newname string) {
-	user, err := u.searchUser(username)
+	index, err := u.searchUser(username)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	user.changeName(newname)
+	(*u)[index].changeName(newname)
 }
 
 func (u *Users) ChangeLastName(username string, newLastName string) {
-	user, err := u.searchUser(username)
+	index, err := u.searchUser(username)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	user.changeLastName(newLastName)
+	(*u)[index].changeLastName(newLastName)
 }
 
 func (u *Users) ChangeEmail(username string, newEmail string) {
-	user, err := u.searchUser(username)
+	index, err := u.searchUser(username)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	user.changeEmail(newEmail)
+	(*u)[index].changeEmail(newEmail)
 }
 
 func (u *Users) ChangePassword(username string, newPass string) {
-	user, err := u.searchUser(username)
+	index, err := u.searchUser(username)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	user.changePass(newPass)
+	(*u)[index].changePass(newPass)
 }
 
-func (u Users) ShowAllUsers() {
-	for _, user := range u {
+func (u *Users) ChangeAge(username string, newAge string) {
+	index, err := u.searchUser(username)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	(*u)[index].changeAge(newAge)
+}
+
+func (u *Users) ShowAllUsers() {
+	for _, user := range *u {
 		user.printContent()
 	}
 }
 
-func (u Users) searchUser(username string) (user, error) {
-	for _, user := range u {
+func (u *Users) searchUser(username string) (int, error) {
+	for index, user := range *u {
 		if user.name == username {
-			return user, nil
+			return index, nil
 		}
 	}
-	return user{}, errors.New("user not found")
+	return 0, errors.New("user not found")
 }
