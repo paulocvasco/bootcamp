@@ -32,9 +32,6 @@ func CreateDummyData() {
 	}
 	dummyData = append(dummyData, newModel)
 
-	// delay 5 seg
-	time.Sleep(time.Duration(1000000000))
-
 	newModel = Transaction{
 		ID:       "1111111111",
 		Code:     "fffffff",
