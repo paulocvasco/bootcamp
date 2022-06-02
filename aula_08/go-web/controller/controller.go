@@ -18,7 +18,7 @@ func Hello(c *gin.Context) {
 func GetAll(c *gin.Context) {
 	response, err := service.GetAll()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, string(response))
@@ -33,7 +33,7 @@ func GetFieldValue(c *gin.Context) {
 
 	response, err := service.GetFieldValue(field)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
