@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"bootcamp/aula_09/go-web/authentication"
 	customErrors "bootcamp/aula_09/go-web/custom_errors"
 	"bootcamp/aula_09/go-web/service"
 	"errors"
@@ -11,9 +12,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func GetToken(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"token_authentication": authentication.GetToken(),
+	})
+}
+
 func Hello(c *gin.Context) {
 	response := service.Hello()
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"message": response,
 	})
 }

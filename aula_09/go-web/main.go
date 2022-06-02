@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bootcamp/aula_09/go-web/authentication"
 	"bootcamp/aula_09/go-web/controller"
 
 	"github.com/gin-gonic/gin"
@@ -14,8 +15,9 @@ func main() {
 
 func mapRouters(r *gin.Engine) {
 	r.GET("/hello", controller.Hello)
-	r.GET("/transactions", controller.GetAll)
-	r.GET("/list/:field", controller.GetFieldValue)
-	r.GET("/info/:id", controller.GetObjectByID)
-	r.POST("/new", controller.AddObject)
+	r.GET("/token", controller.GetToken)
+	r.GET("/transactions", authentication.ValidateToken(), controller.GetAll)
+	r.GET("/list/:field", authentication.ValidateToken(), controller.GetFieldValue)
+	r.GET("/info/:id", authentication.ValidateToken(), controller.GetObjectByID)
+	r.POST("/new", authentication.ValidateToken(), controller.AddObject)
 }
