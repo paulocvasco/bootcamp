@@ -50,7 +50,7 @@ func GetObjectByID(c *gin.Context) {
 	}
 	response, err := service.GetObjectByID(id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		c.JSON(http.StatusNotFound, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, response)
