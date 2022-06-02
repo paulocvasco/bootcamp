@@ -4,6 +4,7 @@ import (
 	"bootcamp/aula_08/go-web/service"
 	"errors"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -38,4 +39,19 @@ func GetFieldValue(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, string(response))
+}
+
+func GetObjectByID(c *gin.Context) {
+	param := c.Param("id")
+	id, err := strconv.Atoi(param)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+	response, err := service.GetObjectByID(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, response)
 }
