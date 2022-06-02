@@ -1,6 +1,7 @@
 package service
 
 import (
+	customErrors "bootcamp/aula_09/go-web/custom_errors"
 	"bootcamp/aula_09/go-web/models"
 	"encoding/json"
 	"errors"
@@ -79,6 +80,23 @@ func AddNewObject(data []byte) error {
 	err := json.Unmarshal(data, &newObject)
 	if err != nil {
 		return err
+	}
+
+	// validate request fields
+	if newObject.Code == "" {
+		return customErrors.ErrorMissingCode
+	}
+	if newObject.Coin == "" {
+		return customErrors.ErrorMissingCoin
+	}
+	if newObject.Issuer == "" {
+		return customErrors.ErrorMissingIssuer
+	}
+	if newObject.Reciever == "" {
+		return customErrors.ErrorMissingReciever
+	}
+	if newObject.Value == 0 {
+		return customErrors.ErrorMissingValue
 	}
 
 	id := len(models.GetObjects()) + 1

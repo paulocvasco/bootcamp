@@ -1,6 +1,7 @@
 package controller
 
 import (
+	customErrors "bootcamp/aula_09/go-web/custom_errors"
 	"bootcamp/aula_09/go-web/service"
 	"errors"
 	"io/ioutil"
@@ -69,8 +70,14 @@ func AddObject(c *gin.Context) {
 
 	err = service.AddNewObject(data)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
-		return
+		switch err.(type) {
+		case customErrors.CustomError:
+			c.JSON(http.StatusBadRequest, err.Error())
+			return
+		default:
+			c.JSON(http.StatusInternalServerError, err.Error())
+			return
+		}
 	}
 	c.JSON(http.StatusOK, nil)
 }
