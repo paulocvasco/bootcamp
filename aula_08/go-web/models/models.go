@@ -5,7 +5,7 @@ import (
 )
 
 type Transaction struct {
-	ID       string  `json:"id,omitempty"`
+	ID       int     `json:"id,omitempty"`
 	Code     string  `json:"transaction_code,omitempty"`
 	Coin     string  `json:"coin,omitempty"`
 	Value    float64 `json:"value,omitempty"`
@@ -22,7 +22,7 @@ func GetDummyData() []Transaction {
 
 func CreateDummyData() {
 	newModel := Transaction{
-		ID:       "3445435",
+		ID:       1,
 		Code:     "xxxxxxxxxx",
 		Coin:     "dolar",
 		Value:    78.34,
@@ -33,7 +33,7 @@ func CreateDummyData() {
 	dummyData = append(dummyData, newModel)
 
 	newModel = Transaction{
-		ID:       "1111111111",
+		ID:       2,
 		Code:     "fffffff",
 		Coin:     "dolar",
 		Value:    547.89,
