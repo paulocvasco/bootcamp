@@ -14,4 +14,5 @@ var (
 	ErrorMissingIssuer   = newError("field issuer is required")
 	ErrorMissingReciever = newError("field reciever is required")
 	ErrorMissingValue    = newError("field value is required")
+	ErrorInvalidToken    = newError("invalid authentication token")
 )
