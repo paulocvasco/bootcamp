@@ -1,0 +1,7 @@
+{
+    "transaction_code":"asdf",
+    "coin":"Real",
+    "issuer":"E",
+    "value":23.45,
+    "reciever":"F"
+}
