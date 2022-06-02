@@ -9,9 +9,9 @@ func newError(msg string) CustomError {
 }
 
 var (
-	ErrorMissingCode     = newError("field code is obrigatory")
-	ErrorMissingCoin     = newError("field coin is obrigatory")
-	ErrorMissingIssuer   = newError("field issuer is obrigatory")
-	ErrorMissingReciever = newError("field reciever is obrigatory")
-	ErrorMissingValue    = newError("field value is obrigatory")
+	ErrorMissingCode     = newError("field code is required")
+	ErrorMissingCoin     = newError("field coin is required")
+	ErrorMissingIssuer   = newError("field issuer is required")
+	ErrorMissingReciever = newError("field reciever is required")
+	ErrorMissingValue    = newError("field value is required")
 )
