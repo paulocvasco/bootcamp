@@ -4,33 +4,22 @@ import (
 	"bootcamp/aula_08/go-web/models"
 	"encoding/json"
 	"errors"
-	"net/http"
-
-	"github.com/gin-gonic/gin"
 )
 
-func Hello(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "Hello Vice",
-	})
+func Hello() string {
+	return "Hello Vice"
 }
 
-func GetAll(c *gin.Context) {
+func GetAll() (string, error) {
 	data := models.GetDummyData()
 	response, err := json.Marshal(data)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
-		return
+		return "", err
 	}
-	c.JSON(http.StatusOK, string(response))
+	return string(response), nil
 }
 
-func GetFieldValue(c *gin.Context) {
-	field, ok := c.Params.Get("field")
-	if !ok {
-		c.JSON(http.StatusBadRequest, errors.New("missed field parameter on URL"))
-	}
-
+func GetFieldValue(field string) (string, error) {
 	var result []models.Transaction
 	var data models.Transaction
 	var err error
@@ -60,15 +49,13 @@ func GetFieldValue(c *gin.Context) {
 		}
 	}
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
-		return
+		return "", err
 	}
 
 	response, err := json.Marshal(result)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
-		return
+		return "", err
 	}
 
-	c.JSON(http.StatusOK, string(response))
+	return string(response), nil
 }
