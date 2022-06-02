@@ -19,4 +19,5 @@ func mapRouters(r *gin.Engine) {
 	r.GET("/hello", controller.Hello)
 	r.GET("/transactions", controller.GetAll)
 	r.GET("/list/:field", controller.GetFieldValue)
+	r.GET("/info/:id", controller.GetObjectByID)
 }
