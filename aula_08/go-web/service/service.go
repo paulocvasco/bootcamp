@@ -59,3 +59,16 @@ func GetFieldValue(field string) (string, error) {
 
 	return string(response), nil
 }
+
+func GetObjectByID(id int) (string, error) {
+	if id < 0 || id >= len(models.GetDummyData()) {
+		return "", errors.New("invalid id")
+	}
+
+	allObjects := models.GetDummyData()
+	response, err := json.Marshal(allObjects[id])
+	if err != nil {
+		return "", err
+	}
+	return string(response), nil
+}
