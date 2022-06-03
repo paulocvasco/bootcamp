@@ -1,4 +1,4 @@
-package transactions
+package repository
 
 import (
 	customErrors "bootcamp/aula_10/go-web/internal/custom_errors"
