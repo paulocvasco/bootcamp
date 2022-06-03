@@ -1,7 +1,7 @@
 package authentication
 
 import (
-	customErrors "bootcamp/aula_10/go-web/custom_errors"
+	customErrors "bootcamp/aula_10/go-web/internal/custom_errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
