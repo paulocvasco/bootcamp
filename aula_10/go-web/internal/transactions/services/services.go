@@ -1,25 +1,30 @@
-package transactions
+package services
 
 import (
 	customErrors "bootcamp/aula_10/go-web/internal/custom_errors"
-	transactions "bootcamp/aula_10/go-web/internal/transactions/repository"
+	"bootcamp/aula_10/go-web/internal/transactions/repository"
 	"encoding/json"
 	"strconv"
 )
 
-type ServiceI interface {
+type Service interface {
 	GetAll() (string, error)
 	GetByID(string) (string, error)
 	Store([]byte) error
 }
 
-type Service struct {
-	repository transactions.Repository
+type service struct {
+	repository repository.Repository
 }
 
-var service Service
+func NewService(r repository.Repository) Service {
+	newService := &service{
+		repository: r,
+	}
+	return newService
+}
 
-func (s *Service) GetAll() (string, error) {
+func (s *service) GetAll() (string, error) {
 	data := s.repository.GetAll()
 	response, err := json.Marshal(data)
 	if err != nil {
@@ -28,10 +33,10 @@ func (s *Service) GetAll() (string, error) {
 	return string(response), nil
 }
 
-func (s *Service) GetByID(id string) (string, error) {
+func (s *service) GetByID(id string) (string, error) {
 	index, err := strconv.Atoi(id)
 	if err != nil {
-		return "", customErrors.WrapError(customErrors.ErrorInvalidParameter, err)
+		return "", customErrors.ErrorInvalidIDParameter
 	}
 	data, err := s.repository.GetByID(index)
 	if err != nil {
@@ -44,8 +49,8 @@ func (s *Service) GetByID(id string) (string, error) {
 	return string(response), nil
 }
 
-func (s *Service) Store(data []byte) error {
-	var newTransaction transactions.Transaction
+func (s *service) Store(data []byte) error {
+	var newTransaction repository.Transaction
 	err := json.Unmarshal(data, &newTransaction)
 	if err != nil {
 		return err
